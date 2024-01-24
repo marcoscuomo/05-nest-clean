@@ -64,7 +64,7 @@ describe('Edit answer (E2E)', () => {
         content: 'New answer content',
       },
     })
-    console.log('response ', response.statusCode)
+
     expect(answerOnDatabase).toBeTruthy()
   })
 })

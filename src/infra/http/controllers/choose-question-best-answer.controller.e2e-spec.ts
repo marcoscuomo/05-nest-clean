@@ -62,7 +62,7 @@ describe('Choose question best answer (E2E)', () => {
         id: question.id.toString(),
       },
     })
-    console.log('response ', response.statusCode)
+
     expect(questionOnDatabase?.bestAnswerId).toEqual(answerId)
   })
 })

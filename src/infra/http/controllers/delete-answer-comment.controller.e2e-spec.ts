@@ -8,7 +8,6 @@ import request from 'supertest'
 import { AnswerCommentFactory } from 'test/factories/make-answer-comment'
 import { AnswerFactory } from 'test/factories/make-answers'
 import { QuestionFactory } from 'test/factories/make-question'
-import { QuestionCommentFactory } from 'test/factories/make-question-comment'
 import { StudentFactory } from 'test/factories/make-student'
 
 describe('Delete answer Comment (E2E)', () => {

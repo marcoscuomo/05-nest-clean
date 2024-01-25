@@ -13,13 +13,17 @@ import { makeQuestion } from 'test/factories/make-question'
 import { SpyInstance } from 'vitest'
 import { waitFor } from 'test/utils/wait-for'
 import { OnQuestionBestAnswerChosen } from './onquestion-best-answer-chosen'
+import { InMemoryAttachmentsRepository } from 'test/repositories/in-memory-attachments-repository'
+import { InMemoryStudentsRepository } from 'test/repositories/in-memory-student-repository'
 
 let inMemoryQuestionAttachmentRepository: InMemoryQuestionAttachmentRepository
 let inMemoryQuestionsRepository: InMemoryQuestionsRepository
-let inMemoryAttachmentsRepository: InMemoryAnswerAttachmentRepository
+let inMemoryAnswerAttachmentRepository: InMemoryAnswerAttachmentRepository
 let inMemoryAnswersRepository: InMemoryAnswersRepository
 let inMemoryNotificationsRepository: InMemoryNotificationsRepository
 let sendNotificationUseCase: SendNotificationUseCase
+let inMemoryAtachmentsRepository: InMemoryAttachmentsRepository
+let inMemoryStudentsRepository: InMemoryStudentsRepository
 
 let sendNotificationExecuteSpy: SpyInstance<
   [SendNotificationUseCaseRequest],
@@ -28,14 +32,19 @@ let sendNotificationExecuteSpy: SpyInstance<
 
 describe('On QuestionBest answer Chosen', () => {
   beforeEach(() => {
+    inMemoryAtachmentsRepository = new InMemoryAttachmentsRepository()
+    inMemoryStudentsRepository = new InMemoryStudentsRepository()
     inMemoryQuestionAttachmentRepository =
       new InMemoryQuestionAttachmentRepository()
     inMemoryQuestionsRepository = new InMemoryQuestionsRepository(
       inMemoryQuestionAttachmentRepository,
+      inMemoryAtachmentsRepository,
+      inMemoryStudentsRepository,
     )
-    inMemoryAttachmentsRepository = new InMemoryAnswerAttachmentRepository()
+    inMemoryAnswerAttachmentRepository =
+      new InMemoryAnswerAttachmentRepository()
     inMemoryAnswersRepository = new InMemoryAnswersRepository(
-      inMemoryAttachmentsRepository,
+      inMemoryAnswerAttachmentRepository,
     )
     inMemoryNotificationsRepository = new InMemoryNotificationsRepository()
     sendNotificationUseCase = new SendNotificationUseCase(

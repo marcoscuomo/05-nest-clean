@@ -43,16 +43,6 @@ export class InMemoryQuestionsRepository implements QuestionsRepository {
       return null
     }
 
-    return question
-  }
-
-  async findById(id: string): Promise<Question | null> {
-    const question = this.items.find((item) => item.id.toString() === id)
-
-    if (!question) {
-      return null
-    }
-
     const author = this.studentsRepository.items.find((student) => {
       return student.id.equals(question.authorId)
     })
@@ -94,6 +84,16 @@ export class InMemoryQuestionsRepository implements QuestionsRepository {
       createdAt: question.createdAt,
       updatedAt: question.updatedAt,
     })
+  }
+
+  async findById(id: string): Promise<Question | null> {
+    const question = this.items.find((item) => item.id.toString() === id)
+
+    if (!question) {
+      return null
+    }
+
+    return question
   }
 
   async delete(question: Question): Promise<void> {
